@@ -1,8 +1,6 @@
 package main
 
 import (
-	"net/http"
-
 	"github.com/kaepa3/hellserver/handler"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -11,6 +9,7 @@ import (
 func main() {
 	// インスタンスを作成
 	e := echo.New()
+	e.Debug = true
 
 	// ミドルウェアを設定
 	e.Use(middleware.Logger())
@@ -24,19 +23,16 @@ func main() {
 
 }
 func routing(e *echo.Echo) {
-	e.GET("/", hello)
+
+	e.Static("/assets", "public/assets")
+
+	e.File("/", "public/index.html")
 	e.File("/signup", "public/signup.html") // GET /signup
 	e.POST("/signup", handler.Signup)       // POST /signup
 	e.File("/login", "public/login.html")   // GET /login
 	e.POST("/login", handler.Login)         // POST /login
 
 	api := e.Group("/api")
-	api.POST("/users/New", hello)
-	api.GET("/users/:id", hello)
-	api.GET("/data/:id", hello)
-}
-
-// ハンドラーを定義
-func hello(c echo.Context) error {
-	return c.String(http.StatusOK, "Hello, World!")
+	api.GET("/users/:id", handler.Hello)
+	api.GET("/data/:id", handler.Hello)
 }
