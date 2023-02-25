@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <script type="text/javascript">
+      if (localStorage.getItem("token") !== null) {
+        location.href = "/health";
+      }
+    </script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Simple Todo</title>
+  </head>
+
+  <body>
+    <h1>Simple Todo</h1>
+    <ul>
+      <li>
+        <a href="/login">Login</a>
+      </li>
+      <li>
+        <a href="/signup">Sign Up</a>
+      </li>
+      <div id="app">{{message}}</div>
+    </ul>
+  </body>
+  <script setup>
+    const { createApp } = Vue;
+
+    createApp({
+      data() {
+        return {
+          message: "Hello Vue!",
+        };
+      },
+    }).mount("#app");
+  </script>
+</html>

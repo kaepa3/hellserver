@@ -28,11 +28,14 @@ func routing(e *echo.Echo) {
 
 	e.File("/", "public/index.html")
 	e.File("/signup", "public/signup.html") // GET /signup
-	e.POST("/signup", handler.Signup)       // POST /signup
-	e.File("/login", "public/login.html")   // GET /login
-	e.POST("/login", handler.Login)         // POST /login
+	e.File("/login", "public/login.html")   // GET /signup
+	e.File("/health", "public/health.html") // GET /login
+
+	e.POST("/signup", handler.Signup) // POST /signup
+	e.POST("/login", handler.Login)   // POST /login
 
 	api := e.Group("/api")
+	api.GET("/users/:id", handler.Health)
 	api.GET("/users/:id", handler.Hello)
 	api.GET("/data/:id", handler.Hello)
 }

@@ -1,0 +1,37 @@
+<primitive.ObjectID !DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="utf-8" />
+      <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+      <script type="text/javascript">
+        if (localStorage.getItem("token") !== null) {
+          location.href = "/health";
+        }
+      </script>
+      <script type="importmap">
+        {
+          "imports": {
+            "vue": "https://cdn.jsdelivr.net/npm/vue@3.2/dist/vue.esm-browser.js"
+          }
+        }
+      </script>
+      <title>login - Simple Todo</title>
+    </head>
+
+    <body>
+      <h1>Login</h1>
+      <form id="login-form">
+        <div>
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="username" v-model="name" />
+        </div>
+        <div>
+          <label for="pwd">Password:</label>
+          <input type="password" id="pwd" name="password" v-model="password" />
+        </div>
+        <button type="button" name="button" @click="login">login</button>
+      </form>
+      <script src="assets/js/login.js" type="module"></script>
+    </body>
+  </html>
+</primitive.ObjectID>
