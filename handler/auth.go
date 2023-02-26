@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/golang-jwt/jwt"
+	"github.com/dgrijalva/jwt-go"
 	"github.com/kaepa3/hellserver/model"
 	"github.com/labstack/echo/v4"
 	"go.mongodb.org/mongo-driver/bson"

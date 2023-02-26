@@ -1,6 +1,8 @@
 package model
 
 import (
+	"log"
+
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -53,4 +55,19 @@ func (c *UserCollection) FindUser(ctx context.Context, filter *bson.D) (*User, e
 	r := c.col.FindOne(ctx, filter)
 	err := r.Decode(&result)
 	return &result, err
+}
+
+func (c *UserCollection) FindUsers(ctx context.Context, filter *bson.D) (*[]User, error) {
+	cur, e := c.col.Find(ctx, filter)
+	if e != nil {
+		log.Println("finder")
+		return nil, e
+	}
+	defer cur.Close(ctx)
+
+	var result []User
+	if err := cur.All(ctx, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
 }

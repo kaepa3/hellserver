@@ -1,50 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    <script type="text/javascript">
-      if (localStorage.getItem("token") === null) {
-        location.href = "/";
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8" />
+  <script type="importmap">
+      {
+        "imports": {
+          "vue": "https://cdn.jsdelivr.net/npm/vue@3.2/dist/vue.esm-browser.js"
+        }
       }
     </script>
-    <title>todos - Simple Todo</title>
-  </head>
+  <title>todos - Simple Todo</title>
+</head>
 
-  <body>
-    <div id="todo-list">
-      <h1 id="title">{{ user }}'s Todos</h1>
-      <div>
-        <input
-          type="text"
-          name="name"
-          v-model="newTodo"
-          placeholder="new todo"
-        />
-        <button type="button" name="add" @click="postTodo">Add</button>
-      </div>
-      <div v-if="todos.length === 0">
-        <p>No your todos...</p>
-      </div>
-      <ul v-else id="todo-list">
-        <li v-for="(todo, index) in todos" :key="index">
-          <input
-            type="checkbox"
-            :id="index"
-            name="completed"
-            :checked="todo.completed"
-            @click="checkTodo(todo.id)"
-          />
-          <label :for="index">{{ todo.name }}</label>
-          <button type="button" name="delete" @click="deleteTodo(todo.id)">
-            X
-          </button>
-        </li>
-      </ul>
-      <button type="button" name="logout" @click="logout()">logout</button>
+<body>
+  <div id="todo-list">
+    <h1 id="title">{{ user }}'s Todos</h1>
+    <div v-if="healthDatas.length === 0">
+      <p>No your todos...</p>
     </div>
-    <!--
-      <script src="assets/js/todoList.js"></script>
-    -->
-  </body>
+    <ul v-else id="todo-list">
+      <li v-for="(todo, index) in healthDatas" :key="index">
+        <input type="checkbox" :id="index" name="completed" />
+        <label :for="index">{{ todo.name }}</label>
+        <button type="button" name="delete" @click="deleteTodo(todo.id)">
+          X
+        </button>
+      </li>
+    </ul>
+    <button type="button" name="logout" @click="logout()">logout</button>
+  </div>
+  <script src="assets/js/health.js" type="module"></script>
+</body>
+
 </html>

@@ -3,13 +3,15 @@ module github.com/kaepa3/hellserver
 go 1.20
 
 require (
-	github.com/golang-jwt/jwt v3.2.2+incompatible
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
+	github.com/golang-jwt/jwt/v5 v5.0.0-rc.1
 	github.com/labstack/echo/v4 v4.10.0
 	go.mongodb.org/mongo-driver v1.11.2
 	golang.org/x/net v0.4.0
 )
 
 require (
+	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/klauspost/compress v1.13.6 // indirect
 	github.com/labstack/gommon v0.4.0 // indirect

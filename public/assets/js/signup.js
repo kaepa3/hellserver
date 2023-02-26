@@ -1,8 +1,14 @@
-const signupForm = new Vue({
-  el: "#signup-form",
-  data: {
-    name: "",
-    password: "",
+import { createApp, ref } from "vue";
+
+if (localStorage.getItem("token") !== null) {
+  location.href = "/health";
+}
+createApp({
+  data() {
+    return {
+      name: "",
+      password: "",
+    };
   },
   methods: {
     signup() {
@@ -15,7 +21,6 @@ const signupForm = new Vue({
         name: this.name,
         password: this.password,
       });
-      console.log(body);
 
       fetch(url, { method, headers, body }).then((response) => {
         if (response.status === 400) {
@@ -30,4 +35,4 @@ const signupForm = new Vue({
       });
     },
   },
-});
+}).mount("#signup-form");

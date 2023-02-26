@@ -36,7 +36,6 @@ createApp({
           }
         })
         .then((json) => {
-          console.log(json);
           const token = json.token;
           if (token.length > 0) {
             localStorage.setItem("token", token);
