@@ -13,14 +13,6 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-func Hello(c echo.Context) error {
-	return c.String(http.StatusOK, "Hello, World!")
-}
-
-func Health(c echo.Context) error {
-	return c.String(http.StatusOK, "Commin Health!")
-}
-
 func Signup(c echo.Context) error {
 	user := model.User{}
 	if err := c.Bind(&user); err != nil {

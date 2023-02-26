@@ -35,6 +35,7 @@ func routing(e *echo.Echo) {
 	e.POST("/login", handler.Login)   // POST /login
 
 	api := e.Group("/api")
-	api.GET("/data/:id", handler.Hello)
 	api.GET("/users/:id", handler.Users)
+	api.GET("/health/:id", handler.Health)
+	api.GET("/train/:id", handler.Train)
 }

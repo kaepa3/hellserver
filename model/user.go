@@ -11,9 +11,9 @@ import (
 )
 
 const (
-	dbName  = "hellsee"
-	colName = "Users"
-	uri     = "mongodb://mongo:pass@127.0.0.1:27017/"
+	dbName      = "hellsee"
+	uri         = "mongodb://mongo:pass@127.0.0.1:27017/"
+	userColName = "Users"
 )
 
 type User struct {
@@ -31,7 +31,7 @@ func GetUserCollection(ctx context.Context) (*UserCollection, error) {
 	if err != nil {
 		return nil, err
 	}
-	col := client.Database(dbName).Collection(colName)
+	col := client.Database(dbName).Collection(userColName)
 
 	return &UserCollection{col: col}, err
 }

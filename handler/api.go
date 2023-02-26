@@ -40,6 +40,17 @@ func Users(c echo.Context) error {
 	return c.JSON(http.StatusOK, users)
 }
 
+// get train data
+func Train(c echo.Context) error {
+	trains := []string{}
+	return c.JSON(http.StatusOK, trains)
+}
+
+// get health data
+func Health(c echo.Context) error {
+	return c.String(http.StatusOK, "Commin Health!")
+}
+
 func userIDFromToken(c echo.Context) string {
 	auth := c.Request().Header.Get("Authorization")
 
