@@ -9,7 +9,6 @@ import (
 func main() {
 	// インスタンスを作成
 	e := echo.New()
-	e.Debug = true
 
 	// ミドルウェアを設定
 	e.Use(middleware.Logger())

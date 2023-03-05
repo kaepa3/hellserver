@@ -4,6 +4,7 @@ go 1.20
 
 require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
+	github.com/go-resty/resty/v2 v2.7.0
 	github.com/labstack/echo/v4 v4.10.0
 	github.com/ory/dockertest/v3 v3.9.1
 	go.mongodb.org/mongo-driver v1.11.2
