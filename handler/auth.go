@@ -32,15 +32,7 @@ func Signup(c echo.Context) error {
 	ctx := context.Background()
 	filter := bson.D{{Key: "name", Value: user.Name}}
 
-	col, err := model.GetUserCollection(ctx)
-	if err != nil {
-		return &echo.HTTPError{
-			Code:    http.StatusBadRequest,
-			Message: "invalid name or password",
-		}
-	}
-
-	if count, err := col.CountUser(ctx, &filter); err != nil && count != 0 {
+	if count, err := model.CountUser(ctx, &filter); err != nil && count != 0 {
 		return errors.Join(&echo.HTTPError{
 			Code:    http.StatusConflict,
 			Message: "count err",
@@ -48,7 +40,7 @@ func Signup(c echo.Context) error {
 	}
 
 	user.ID = primitive.NewObjectID()
-	if err := col.CreateUser(ctx, &user); err != nil {
+	if err := model.CreateUser(ctx, &user); err != nil {
 		return errors.Join(err, &echo.HTTPError{
 			Code:    http.StatusConflict,
 			Message: "db error",
@@ -66,13 +58,9 @@ func Login(c echo.Context) error {
 		return err
 	}
 	ctx := context.Background()
-	col, err := model.GetUserCollection(ctx)
-	if err != nil {
-		return err
-	}
 
 	filter := bson.D{{Key: "name", Value: u.Name}}
-	user, err := col.FindUser(ctx, &filter)
+	user, err := model.FindUser(ctx, &filter)
 	if err != nil {
 		return errors.Join(&echo.HTTPError{
 			Code:    http.StatusUnauthorized,

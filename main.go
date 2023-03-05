@@ -38,4 +38,5 @@ func routing(e *echo.Echo) {
 	api.GET("/users/:id", handler.Users)
 	api.GET("/health/:id", handler.Health)
 	api.GET("/train/:id", handler.Train)
+	api.POST("/train", handler.AddTrain)
 }

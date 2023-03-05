@@ -15,24 +15,9 @@ import (
 )
 
 func Users(c echo.Context) error {
-	log.Println("comming handler")
-	uid := userIDFromToken(c)
 	ctx := context.Background()
-	col, err := model.GetUserCollection(ctx)
-	if err != nil {
-		log.Println("not correction")
-		return echo.ErrNotFound
-	}
 
-	id, _ := primitive.ObjectIDFromHex(uid)
-	filter := bson.D{{Key: "_id", Value: id}}
-	user, err := col.FindUser(ctx, &filter)
-	if err != nil {
-		log.Println(err)
-	}
-	log.Println(user.Name)
-
-	users, err := col.FindUsers(ctx, &bson.D{})
+	users, err := model.FindUsers(ctx, &bson.D{})
 	if err != nil {
 		return echo.ErrNotFound
 	}
@@ -40,10 +25,40 @@ func Users(c echo.Context) error {
 	return c.JSON(http.StatusOK, users)
 }
 
+func IsUserExist(uid string) bool {
+	id, _ := primitive.ObjectIDFromHex(uid)
+	filter := bson.D{{Key: "_id", Value: id}}
+	ctx := context.Background()
+	_, err := model.FindUser(ctx, &filter)
+	return err == nil
+}
+
 // get train data
 func Train(c echo.Context) error {
-	trains := []string{}
+	uid := userIDFromToken(c)
+	ctx := context.Background()
+
+	trains, err := model.FindTrains(ctx, &bson.D{{Key: "userid", Value: uid}})
+	if err != nil {
+		return echo.ErrNotFound
+	}
 	return c.JSON(http.StatusOK, trains)
+}
+
+// addnew training
+func AddTrain(c echo.Context) error {
+	uid := userIDFromToken(c)
+
+	train := new(model.Train)
+	if err := c.Bind(train); err != nil {
+		return err
+	}
+	train.UserID = uid
+	ctx := context.Background()
+	if err := model.AddTrain(ctx, train); err != nil {
+		return err
+	}
+	return nil
 }
 
 // get health data
